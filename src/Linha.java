@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Linha {
     private Paragem primeiraParagem;
 
@@ -51,4 +54,29 @@ public class Linha {
     {
         return primeiraParagem;
     }
+    
+    public List<Paragem> obterParagens() {
+    List<Paragem> paragens = new ArrayList<>();
+    Paragem atual = primeiraParagem;
+
+    while (atual != null) {
+        paragens.add(atual);
+        atual = atual.getProximaParagem();
+    }
+
+    return paragens;
+}
+
+public void mostrarEstadoAtual() {
+    Paragem atual = primeiraParagem;
+
+    while (atual != null) {
+        System.out.println("Paragem: " + atual.getNome());
+        System.out.println("Passageiros em espera: " + atual.getNumeroPassageiros());
+        System.out.println("Fila: " + atual.getFila());
+        System.out.println("----------------------");
+
+        atual = atual.getProximaParagem();
+    }
+}
 }

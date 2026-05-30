@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
 
         while (!sair)
         {
-            System.out.println("\n=== Sistema de Gestão de Linha de Autocarros ===");
+            System.out.println("\n--- Sistema de Gestão de Linha de Autocarros ---");
             System.out.println("1. Adicionar paragem");
             System.out.println("2. Remover paragem");
             System.out.println("3. Listar percurso");
@@ -17,10 +18,13 @@ public class Main {
             System.out.println("5. Simular chegada do autocarro a uma paragem");
             System.out.println("6. Ordenar paragens por nome");
             System.out.println("7. Ordenar paragens por número de passageiros");
+            System.out.println("8. Mostrar estado atual da linha");
+            System.out.println("9. Mostrar passageiros no autocarro");
+            System.out.println("10. Desembarcar passageiro do autocarro");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             int opcao = sc.nextInt();
-            sc.nextLine(); // Limpar buffer
+            sc.nextLine();
 
             switch (opcao)
             {
@@ -43,7 +47,7 @@ public class Main {
                     }
                     break;
                 case 3:
-                    System.out.println("Percruso da linha:");
+                    System.out.println("Percurso da linha:");
                     linha.listarPercurso();
                     break;
                 case 4:
@@ -85,7 +89,66 @@ public class Main {
                     }
                     break;
                 case 6:
+                    List<Paragem> paragensNome = linha.obterParagens();
+                    Ordenacao.bubblesortNome(paragensNome);
 
+                    System.out.println("Paragens ordenadas por nome:");
+                    for (Paragem p : paragensNome) 
+                    {
+                        System.out.println(p.getNome() + " - Passageiros: " + p.getNumeroPassageiros());
+                    }
+                    break;
+                case 7:
+                    List<Paragem> paragensPassageiros = linha.obterParagens();
+                    Ordenacao.bubblesortPassageiros(paragensPassageiros);
+
+                    System.out.println("Paragens ordenadas por número de passageiros:");
+                    for (Paragem p : paragensPassageiros) 
+                    {
+                        System.out.println(p.getNome() + " - Passageiros: " + p.getNumeroPassageiros());
+                    }
+                    break;
+                case 8:
+                    System.out.println("Estado atual da linha:");
+                    linha.mostrarEstadoAtual();
+                    break;
+                case 9:
+                    System.out.println("Passageiros no autocarro:");
+                    System.out.println(autocarro.getPassageiros());
+                    System.out.println("Total: " + autocarro.getNumeroPassageiros());
+                    break;
+                
+                case 10:
+                    System.out.println("Digite o nome do passageiro a desembarcar: ");
+                    String nomeDesembarcar = sc.nextLine();
+                    Passageiro passageiroParaSair = null;
+
+                    for (Passageiro p : autocarro.getPassageiros()) 
+                    {
+                        if (p.getNome().equalsIgnoreCase(nomeDesembarcar)) 
+                        {
+                            passageiroParaSair = p;
+                            break;
+                        }
+                    }
+
+                    if (passageiroParaSair != null) 
+                    {
+                        autocarro.desembarcarPassageiro(passageiroParaSair);
+                        System.out.println("Passageiro " + passageiroParaSair.getNome() + " saiu do autocarro.");
+                    } 
+                    else 
+                    {
+                        System.out.println("Passageiro não encontrado no autocarro.");
+                    }
+                    break;
+                case 0:
+                    sair = true;
+                    System.out.println("Encerrando o sistema...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    break;
             }
             
         }
