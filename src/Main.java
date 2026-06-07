@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -89,23 +88,23 @@ public class Main {
                     }
                     break;
                 case 6:
-                    List<Paragem> paragensNome = linha.obterParagens();
-                    Ordenacao.bubblesortNome(paragensNome);
+                    Paragem[] paragensNome = linha.obterParagens();
+                    Ordenacao.bubbleSortNome(paragensNome);
 
                     System.out.println("Paragens ordenadas por nome:");
-                    for (Paragem p : paragensNome) 
+                    for (int i = 0; i < paragensNome.length; i++)
                     {
-                        System.out.println(p.getNome() + " - Passageiros: " + p.getNumeroPassageiros());
+                        System.out.println(paragensNome[i].getNome() + " - Passageiros: " + paragensNome[i].getNumeroPassageiros());
                     }
                     break;
                 case 7:
-                    List<Paragem> paragensPassageiros = linha.obterParagens();
-                    Ordenacao.bubblesortPassageiros(paragensPassageiros);
+                    Paragem[] paragensPassageiros = linha.obterParagens();
+                    Ordenacao.selectionSortPassageiros(paragensPassageiros);
 
                     System.out.println("Paragens ordenadas por número de passageiros:");
-                    for (Paragem p : paragensPassageiros) 
+                    for (int i = 0; i < paragensPassageiros.length; i++)
                     {
-                        System.out.println(p.getNome() + " - Passageiros: " + p.getNumeroPassageiros());
+                        System.out.println(paragensPassageiros[i].getNome() + " - Passageiros: " + paragensPassageiros[i].getNumeroPassageiros());
                     }
                     break;
                 case 8:
@@ -114,28 +113,16 @@ public class Main {
                     break;
                 case 9:
                     System.out.println("Passageiros no autocarro:");
-                    System.out.println(autocarro.getPassageiros());
+                    autocarro.mostrarPassageiros();
                     System.out.println("Total: " + autocarro.getNumeroPassageiros());
                     break;
                 
                 case 10:
                     System.out.println("Digite o nome do passageiro a desembarcar: ");
                     String nomeDesembarcar = sc.nextLine();
-                    Passageiro passageiroParaSair = null;
-
-                    for (Passageiro p : autocarro.getPassageiros()) 
+                    if (autocarro.desembarcarPassageiro(nomeDesembarcar)) 
                     {
-                        if (p.getNome().equalsIgnoreCase(nomeDesembarcar)) 
-                        {
-                            passageiroParaSair = p;
-                            break;
-                        }
-                    }
-
-                    if (passageiroParaSair != null) 
-                    {
-                        autocarro.desembarcarPassageiro(passageiroParaSair);
-                        System.out.println("Passageiro " + passageiroParaSair.getNome() + " saiu do autocarro.");
+                        System.out.println("Passageiro " + nomeDesembarcar + " saiu do autocarro.");
                     } 
                     else 
                     {

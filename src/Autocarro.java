@@ -1,22 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Autocarro {
-    private List<Passageiro> passageiros;
+    private ListaPassageiros passageiros;
 
-    public Autocarro() {
-        this.passageiros = new ArrayList<>();
+    public Autocarro() 
+    {
+        passageiros = new ListaPassageiros();
     }
-    public void embarcarPassageiro(Passageiro passageiro) {
-        passageiros.add(passageiro);
+
+    public void embarcarPassageiro(Passageiro passageiro) 
+    {
+        passageiros.adicionar(passageiro);
     }
-    public void desembarcarPassageiro(Passageiro passageiro) {
-        passageiros.remove(passageiro);
+
+    public boolean desembarcarPassageiro(String nome) 
+    {
+        return passageiros.removerPorNome(nome);
     }
-    public List<Passageiro> getPassageiros() {
-        return passageiros;
+
+    public Passageiro procurarPassageiro(String nome) 
+    {
+        return passageiros.procurarPorNome(nome);
     }
-    public int getNumeroPassageiros() {
-        return passageiros.size();
+
+    public void mostrarPassageiros() 
+    {
+        passageiros.mostrar();
+    }
+
+    public int getNumeroPassageiros() 
+    {
+        return passageiros.tamanho();
     }
 }
